@@ -9,7 +9,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colegio Django</title>
+    <title>{% block titulo %}Colegio Django{% endblock %}</title>
 
     <style>
         body {
@@ -82,61 +82,65 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <div class="container mt-5">
-        <div class="hero text-center shadow">
-            <h1 class="display-4 fw-bold">Bienvenido al Sistema del Colegio</h1>
-            <p class="lead mt-3">
-                Gestioná alumnos, profesores y cursos de manera simple y eficiente.
-            </p>
-            <a href="" class="btn btn-accent btn-lg mt-3">
-                Comenzar
-            </a>
+    {% block CardSection %}
+        <!-- HERO SECTION -->
+        <div class="container mt-5">
+            <div class="hero text-center shadow">
+                <h1 class="display-4 fw-bold">Bienvenido al Sistema del Colegio</h1>
+                <p class="lead mt-3">
+                    Gestioná alumnos, profesores y cursos de manera simple y eficiente.
+                </p>
+                <a href="" class="btn btn-accent btn-lg mt-3">
+                    Comenzar
+                </a>
+            </div>
         </div>
-    </div>
+    {% endblock %}
 
-    <!-- CARDS -->
-    <div class="container mt-5 mb-5">
-        <div class="row g-4">
+    {% block content %}
+        <!-- CARDS -->
+        <div class="container mt-5 mb-5">
+            <div class="row g-4">
 
-            <div class="col-md-4">
-                <div class="card card-custom shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">👨‍🎓 Alumnos</h5>
-                        <p class="card-text">Administrá los estudiantes del colegio.</p>
-                        <a href="{% url 'alumnos_list' %}" class="btn btn-primary">
-                            Ver Alumnos
-                        </a>
+                <div class="col-md-4">
+                    <div class="card card-custom shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">👨‍🎓 Alumnos</h5>
+                            <p class="card-text">Administrá los estudiantes del colegio.</p>
+                            <a href="{% url 'alumnos_list' %}" class="btn btn-primary">
+                                Ver Alumnos
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-4">
-                <div class="card card-custom shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">👩‍🏫 Profesores</h5>
-                        <p class="card-text">Gestioná el plantel docente.</p>
-                        <a href="" class="btn btn-primary">
-                            Ver Profesores
-                        </a>
+                <div class="col-md-4">
+                    <div class="card card-custom shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">👩‍🏫 Profesores</h5>
+                            <p class="card-text">Gestioná el plantel docente.</p>
+                            <a href="" class="btn btn-primary">
+                                Ver Profesores
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-4">
-                <div class="card card-custom shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">📖 Cursos</h5>
-                        <p class="card-text">Organizá las materias y asignaciones.</p>
-                        <a href="" class="btn btn-primary">
-                            Ver Cursos
-                        </a>
+                <div class="col-md-4">
+                    <div class="card card-custom shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">📖 Cursos</h5>
+                            <p class="card-text">Organizá las materias y asignaciones.</p>
+                            <a href="" class="btn btn-primary">
+                                Ver Cursos
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
+    {% endblock %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
