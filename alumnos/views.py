@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from alumnos.models import Alumnos
-from alumnos.forms import AlumnoForm
+from alumnos.forms import AlumnoForm, AlumnoUpdateForm
 
 # Create your views here.
 def inicio(request):
@@ -37,11 +37,48 @@ def crear_alumno(request):
     if request.method == "POST":
         form = AlumnoForm(request.POST)
         if form.is_valid():
-            form.save()
+            # Alumnos.objects.create(
+            #     nombre=form.cleaned_data["nombre"],
+            #     apellido=form.cleaned_data["apellido"],
+            #     nro_alumno=form.cleaned_data["nro_alumno"],   CON forms.FORM
+            #     fecha_de_nacimiento=form.cleaned_data["fecha_de_nacimiento"],
+            #     dni=form.cleaned_data["dni"],
+            #     email=form.cleaned_data["email"]
+            # )
+            form.save()  # CON forms.ModelForm
             return redirect('alumnos_list')
     else:
         form = AlumnoForm()
     
     return render(request, "alumnos/crear_alumno.html", {
-        "form": form
+        "form": form,
     })
+
+
+def actualizar_alumno(request, dni):
+    alumno = get_object_or_404(Alumnos, dni=dni)
+    if request.method == "POST":
+        form = AlumnoUpdateForm(request.POST, instance=alumno)
+        if form.is_valid():
+            form.save()
+            return redirect("alumnos_list")
+    else:
+        form = AlumnoUpdateForm(instance=alumno)
+
+    context = {"form": form}
+    return render(request, "alumnos/actualizar_alumno.html", context)
+
+
+def eliminar_alumno(request, dni):
+    alumno = get_object_or_404(Alumnos, dni=dni)
+    if request.method == "POST":
+        alumno.delete()
+        return redirect("alumnos_list")
+    return redirect("alumno_list")
+
+"""
+C-reate / Crear
+R-ead / Leer              REGISTROS EN BD
+U-pdate / Actualizar
+D-elete / Eliminar
+"""

@@ -1,0 +1,29 @@
+{% extends "alumnos/inicio.html" %}
+
+{% block titulo %} Agregar Alumnos {%endblock%}
+
+{% block CardSection %} {% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-5" style="background-color:#d6d8db; min-height:70vh;">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white text-center">
+                    <h4 class="mb-0">➕ Crear Profe</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary w-100">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
