@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -10,7 +11,7 @@ from django.views.generic import (
 from profesores.models import Profesores
 
 
-class ProfesoresListView(ListView):
+class ProfesoresListView(LoginRequiredMixin, ListView):
     model = Profesores
     template_name = "profesores/profes_list.html"
     context_object_name = "profesores_list"
@@ -23,7 +24,7 @@ class ProfesoresListView(ListView):
         return queryset
 
 
-class ProfesoresDetailView(DetailView):
+class ProfesoresDetailView(LoginRequiredMixin, DetailView):
     model = Profesores
     template_name = "profesores/profes_detail.html"
     context_object_name = "profesor"
@@ -31,13 +32,13 @@ class ProfesoresDetailView(DetailView):
     slug_url_kwarg = "nro_legajo"
     
 
-class ProfesoresDeleteView(DeleteView):
+class ProfesoresDeleteView(LoginRequiredMixin, DeleteView):
     model = Profesores
     template_name = "profesores/profes_confirm_delete.html"
     success_url = reverse_lazy("profesores_list")
 
 
-class ProfesoresUpdateView(UpdateView):
+class ProfesoresUpdateView(LoginRequiredMixin, UpdateView):
     model = Profesores
     fields = ["nombre", "apellido"]
     slug_field = "nro_legajo"
@@ -45,7 +46,7 @@ class ProfesoresUpdateView(UpdateView):
     success_url = reverse_lazy("profesores_list")
 
 
-class ProfesoresCreateView(CreateView):
+class ProfesoresCreateView(LoginRequiredMixin, CreateView):
     model = Profesores
     template_name = "profesores/profes_form.html"
     fields = ["nombre", "apellido", "nro_legajo", "email", "fecha_de_ingreso"]

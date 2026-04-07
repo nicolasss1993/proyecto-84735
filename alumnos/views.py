@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from alumnos.models import Alumnos
 from alumnos.forms import AlumnoForm, AlumnoUpdateForm
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def inicio(request):
     return render(request, "alumnos/inicio.html")
 
 
+@login_required
 def listar_alumnos(request):
     nombre = request.GET.get("nombre")
     alumnos_query = Alumnos.objects.all()[:20] # list(QuerySet[Alumno, Alumno2, ...])
@@ -19,6 +22,7 @@ def listar_alumnos(request):
     }
     return render(request, "alumnos/alumnos_list.html", context)
 
+@login_required
 def ver_alumno(request, nro_alumno):
     try:
         alumno = Alumnos.objects.get(nro_alumno=nro_alumno)
@@ -33,6 +37,7 @@ def ver_alumno(request, nro_alumno):
 # POST - Agregar informacion nueva. / Modificar informacion existente en la base de datos.
 # DELETE - Eliminar informacion
 # PUT - Actualizar informacion (Todo en la base de datos.)
+@login_required
 def crear_alumno(request):
     if request.method == "POST":
         form = AlumnoForm(request.POST)
@@ -55,6 +60,7 @@ def crear_alumno(request):
     })
 
 
+@login_required
 def actualizar_alumno(request, dni):
     alumno = get_object_or_404(Alumnos, dni=dni)
     if request.method == "POST":
@@ -68,7 +74,7 @@ def actualizar_alumno(request, dni):
     context = {"form": form}
     return render(request, "alumnos/actualizar_alumno.html", context)
 
-
+@login_required
 def eliminar_alumno(request, dni):
     alumno = get_object_or_404(Alumnos, dni=dni)
     if request.method == "POST":

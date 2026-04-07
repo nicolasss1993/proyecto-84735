@@ -1,0 +1,15 @@
+{% extends "alumnos/inicio.html" %}
+
+{% block titulo %} Logout {%endblock%}
+
+{% block CardSection %} {% endblock %}
+
+{% block content %}
+<div class="container text-center my-5">
+  <div class="alert alert-info shadow-sm p-4">
+    <h4 class="fw-bold mb-3">Sesión cerrada</h4>
+    <p>Has cerrado sesión correctamente.</p>
+    <a href="{% url 'login' %}" class="btn btn-primary mt-3">Volver a iniciar sesión</a>
+  </div>
+</div>
+{% endblock %}
